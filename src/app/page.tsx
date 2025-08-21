@@ -4,6 +4,7 @@ import { RiskScoreCard } from '@/components/dashboard/risk-score-card';
 import { ComparativeAnalysisChart } from '@/components/dashboard/comparative-analysis-chart';
 import { RiskFactorsChart } from '@/components/dashboard/risk-factors-chart';
 import { UnstructuredDataAnalysis } from '@/components/dashboard/unstructured-data-analysis';
+import { DataIngestion } from '@/components/dashboard/data-ingestion';
 
 export default function DashboardPage() {
   return (
@@ -19,6 +20,9 @@ export default function DashboardPage() {
           </div>
           <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
             <UnstructuredDataAnalysis />
+          </div>
+          <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
+            <DataIngestion />
           </div>
         </main>
       </div>
