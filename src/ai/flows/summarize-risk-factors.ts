@@ -29,13 +29,13 @@ const prompt = ai.definePrompt({
   name: 'summarizeRiskFactorsPrompt',
   input: {schema: SummarizeRiskFactorsInputSchema},
   output: {schema: SummarizeRiskFactorsOutputSchema},
-  prompt: `You are an expert financial risk analyst.
+  prompt: `You are an expert financial risk analyst specializing in stock markets.
 
-  Please summarize the key risk factors identified from the following unstructured data:
+  Please summarize the key financial and market-related risk factors identified from the following unstructured data:
 
-  {{unstructuredData}}
+  {{{unstructuredData}}}
 
-  Provide a concise overview of potential credit risks.
+  Provide a concise overview of potential risks that could impact stock prices or market stability.
   `,
 });
 

@@ -30,7 +30,17 @@ const prompt = ai.definePrompt({
   name: 'analyzeUnstructuredDataPrompt',
   input: {schema: AnalyzeUnstructuredDataInputSchema},
   output: {schema: AnalyzeUnstructuredDataOutputSchema},
-  prompt: `You are a financial risk analyst. Analyze the following unstructured data source and identify any risk factors related to creditworthiness. Provide a summary of your analysis and the overall sentiment of the data source.\n\nData Source:\n{{{dataSource}}}`,
+  prompt: `You are an expert financial market analyst. Your task is to analyze the following unstructured data source (e.g., news article, social media post, report) for signals related to stock market risk and general financial stability.
+
+Analyze the following data source:
+---
+{{{dataSource}}}
+---
+
+Based on the text, please:
+1.  Identify a list of key risk factors. These could be related to market volatility, company performance, economic indicators, geopolitical events, etc.
+2.  Provide a concise summary of your analysis.
+3.  Determine the overall sentiment of the data source (positive, negative, or neutral) from a financial risk perspective.`,
 });
 
 const analyzeUnstructuredDataFlow = ai.defineFlow(
