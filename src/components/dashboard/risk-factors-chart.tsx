@@ -1,7 +1,8 @@
+
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Label, Pie, PieChart } from 'recharts';
+import { Pie, PieChart } from 'recharts';
 
 import {
   Card,
@@ -78,33 +79,11 @@ export function RiskFactorsChart() {
               nameKey="factor"
               innerRadius={60}
               strokeWidth={5}
-            >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                      >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
-                        >
-                          Top Factors
-                        </tspan>
-                      </text>
-                    );
-                  }
-                }}
-              />
-            </Pie>
+            ></Pie>
           </PieChart>
         </ChartContainer>
       </CardContent>
+      <div className="text-center text-lg font-bold">Top Factors</div>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
           Market Risk is the highest contributing factor <TrendingUp className="h-4 w-4" />
