@@ -16,9 +16,9 @@ const AnalyzeUnstructuredDataInputSchema = z.object({
 export type AnalyzeUnstructuredDataInput = z.infer<typeof AnalyzeUnstructuredDataInputSchema>;
 
 const AnalyzeUnstructuredDataOutputSchema = z.object({
-  riskFactors: z.array(z.string()).describe('An array of risk factors identified in the unstructured data.'),
-  summary: z.string().describe('A summary of the analysis of the unstructured data.'),
-  overallSentiment: z.string().describe('The overall sentiment of the data source (positive, negative, neutral).'),
+  riskFactors: z.array(z.string()).describe('An array of financial or market-related risk factors identified in the data.'),
+  summary: z.string().describe('A summary of the financial risk analysis.'),
+  overallSentiment: z.string().describe('The overall sentiment of the data source from a financial risk perspective (positive, negative, neutral).'),
 });
 export type AnalyzeUnstructuredDataOutput = z.infer<typeof AnalyzeUnstructuredDataOutputSchema>;
 
@@ -30,17 +30,17 @@ const prompt = ai.definePrompt({
   name: 'analyzeUnstructuredDataPrompt',
   input: {schema: AnalyzeUnstructuredDataInputSchema},
   output: {schema: AnalyzeUnstructuredDataOutputSchema},
-  prompt: `You are an expert financial market analyst. Your task is to analyze the following unstructured data source (e.g., news article, social media post, report) for signals related to stock market risk and general financial stability.
+  prompt: `You are an expert financial market analyst. Your task is to analyze the following unstructured text for signals related to stock market risk and general financial stability.
 
 Analyze the following data source:
 ---
 {{{dataSource}}}
 ---
 
-Based on the text, please:
-1.  Identify a list of key risk factors. These could be related to market volatility, company performance, economic indicators, geopolitical events, etc.
-2.  Provide a concise summary of your analysis.
-3.  Determine the overall sentiment of the data source (positive, negative, or neutral) from a financial risk perspective.`,
+Based on the text, please perform a financial risk analysis and provide the following:
+1.  Identify a list of key financial and market-related risk factors. These could be related to market volatility, company performance, economic indicators, geopolitical events, regulatory changes, etc.
+2.  Provide a concise summary of your financial risk analysis.
+3.  Determine the overall sentiment of the data source from a financial risk perspective (positive, negative, or neutral).`,
 });
 
 const analyzeUnstructuredDataFlow = ai.defineFlow(
