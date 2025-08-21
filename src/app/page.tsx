@@ -10,6 +10,7 @@ import { RiskFactorsChart } from '@/components/dashboard/risk-factors-chart';
 import { UnstructuredDataAnalysis } from '@/components/dashboard/unstructured-data-analysis';
 import { DataIngestion } from '@/components/dashboard/data-ingestion';
 import type { AnalysisState } from '@/app/actions';
+import { EvaluationFocus } from '@/components/dashboard/evaluation-focus';
 
 function calculateRiskScore(analysisResult: AnalysisState['analysis']) {
   if (!analysisResult) {
@@ -54,6 +55,9 @@ export default function DashboardPage() {
             <RiskScoreCard score={riskScore} />
             <ComparativeAnalysisChart />
             <RiskFactorsChart />
+          </div>
+          <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
+            <EvaluationFocus />
           </div>
           <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
             <UnstructuredDataAnalysis onAnalysisComplete={setAnalysisResult} />
