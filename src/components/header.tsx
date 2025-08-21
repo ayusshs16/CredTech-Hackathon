@@ -1,3 +1,4 @@
+
 import {
   Bell,
   CircleUser,
@@ -53,11 +54,18 @@ export function Header() {
               <span className="sr-only">CreditClarity</span>
             </Link>
             <Link
-              href="#"
+              href="/dashboard"
               className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
             >
               <Home className="h-5 w-5" />
               Dashboard
+            </Link>
+             <Link
+              href="/profile"
+              className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+            >
+              <CircleUser className="h-5 w-5" />
+              Profile
             </Link>
             <Link
               href="#"
@@ -91,10 +99,19 @@ export function Header() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
+           <Link href="/profile">
+            <DropdownMenuItem>
+                Profile
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>Support</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+           <Link href="/login">
+            <DropdownMenuItem>
+                Logout
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

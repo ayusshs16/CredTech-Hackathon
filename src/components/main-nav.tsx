@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import {
   Bell,
@@ -6,6 +7,7 @@ import {
   Package,
   Settings,
   Users,
+  CircleUser,
 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
@@ -41,6 +43,13 @@ export function MainNav() {
             >
               <Home className="h-4 w-4" />
               Dashboard
+            </Link>
+            <Link
+              href="/profile"
+              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+            >
+              <CircleUser className="h-4 w-4" />
+              Profile
             </Link>
             <Link
               href="#"
