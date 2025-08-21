@@ -30,7 +30,19 @@ const evaluationCriteria = [
     {
       title: "Attention to detail",
       content: "How do you ensure polish and accuracy across all aspects of your work - code correctness, error handling, edge-case coverage, tests, and documentation-so that no subtle issues slip through?"
-    }
+    },
+    {
+      title: "Code quality",
+      content: "How do you keep your code readable and modular, with meaningful names and minimal duplication?",
+    },
+    {
+      title: "System architecture",
+      content: "How well do you explain the basic system architecture concepts? Is your application architecture reasonable? What tech stack do you use and why was that specific selection made? How and where are you storing data? What's the distribution of client-side and server-side processes?",
+    },
+    {
+      title: "Trade-offs",
+      content: "Have you explained basic architectural decisions and why you rejected alternative approaches? Do you conduct a trade-off analysis between various possible alternatives? Do you try out and compare multiple approaches, and benchmark them against standard methods? (this along with the System Architecture should be highlighted in the repository README, presentation and/or video demonstration)",
+    },
   ];
   
   export function EvaluationFocus() {
