@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Header } from '@/components/header';
 import { MainNav } from '@/components/main-nav';
 import { RiskScoreCard } from '@/components/dashboard/risk-score-card';
@@ -42,8 +42,20 @@ function calculateRiskScore(analysisResult: AnalysisState['analysis']) {
 
 export default function DashboardPage() {
   const [analysisResult, setAnalysisResult] = useState<AnalysisState | null>(null);
+  const [manualScore, setManualScore] = useState<number | null>(null);
 
-  const riskScore = calculateRiskScore(analysisResult?.analysis);
+  const handleAnalysisComplete = (result: AnalysisState) => {
+    setAnalysisResult(result);
+    setManualScore(null); // Reset manual score when new analysis is done
+  }
+
+  const handleScoreRefresh = useCallback(() => {
+    // In a real app, this would be a new API call.
+    // For this prototype, we'll generate a random score.
+    setManualScore(Math.floor(Math.random() * (85 - 55 + 1)) + 55);
+  }, []);
+
+  const riskScore = manualScore ?? calculateRiskScore(analysisResult?.analysis);
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -52,7 +64,7 @@ export default function DashboardPage() {
         <Header />
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-            <RiskScoreCard score={riskScore} />
+            <RiskScoreCard score={riskScore} onRefresh={handleScoreRefresh} />
             <ComparativeAnalysisChart />
             <RiskFactorsChart />
           </div>
@@ -60,7 +72,7 @@ export default function DashboardPage() {
             <EvaluationFocus />
           </div>
           <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
-            <UnstructuredDataAnalysis onAnalysisComplete={setAnalysisResult} />
+            <UnstructuredDataAnalysis onAnalysisComplete={handleAnalysisComplete} />
           </div>
           <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
             <DataIngestion />
