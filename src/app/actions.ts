@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { analyzeUnstructuredData } from '@/ai/flows/analyze-unstructured-data';
 import { summarizeRiskFactors } from '@/ai/flows/summarize-risk-factors';
 import { processData } from '@/ai/flows/process-data';
+import { generateReport } from '@/ai/flows/generate-report';
 
 const analysisSchema = z.object({
   text: z.string().min(50, 'Please provide at least 50 characters for analysis.'),
@@ -79,5 +80,20 @@ export async function fetchData(url: string): Promise<{ items: {title: string, l
   } catch (e) {
     console.error(e);
     return { error: 'Failed to fetch or parse RSS feed.' };
+  }
+}
+
+
+export async function generateReportAction(url: string, content: string): Promise<{ report: { title: string; summary: string;}} | { error: string }> {
+  if (!url || !content) {
+    return { error: 'URL and content are required to generate a report.' };
+  }
+
+  try {
+    const report = await generateReport({ url, content });
+    return { report };
+  } catch (error) {
+    console.error(error);
+    return { error: 'Failed to generate report.' };
   }
 }
