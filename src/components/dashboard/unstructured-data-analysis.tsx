@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -33,7 +34,11 @@ function getSentimentInfo(sentiment: string) {
   }
 }
 
-export function UnstructuredDataAnalysis() {
+interface UnstructuredDataAnalysisProps {
+    onAnalysisComplete: (result: AnalysisState) => void;
+}
+
+export function UnstructuredDataAnalysis({ onAnalysisComplete }: UnstructuredDataAnalysisProps) {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<AnalysisState | null>(null);
@@ -52,6 +57,7 @@ export function UnstructuredDataAnalysis() {
         });
       }
       setResult(response);
+      onAnalysisComplete(response);
     });
   };
 

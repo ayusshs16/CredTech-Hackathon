@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -7,9 +8,14 @@ import {
 } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
-export function RiskScoreCard() {
-  const score = 68;
-  const riskLevel = 'Moderate';
+function getRiskLevel(score: number): string {
+    if (score > 75) return 'High';
+    if (score > 50) return 'Moderate';
+    return 'Low';
+}
+
+export function RiskScoreCard({ score }: { score: number }) {
+  const riskLevel = getRiskLevel(score);
 
   return (
     <Card>
