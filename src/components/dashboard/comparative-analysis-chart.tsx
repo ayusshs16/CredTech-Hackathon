@@ -1,6 +1,7 @@
+
 'use client';
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip } from 'recharts';
 import {
   Card,
   CardContent,
@@ -14,27 +15,26 @@ import {
   ChartTooltipContent,
   ChartConfig,
 } from '@/components/ui/chart';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const chartData = [
-  { name: 'Your Score', score: 68, fill: 'var(--color-your-score)' },
-  { name: 'Industry Avg.', score: 55, fill: 'var(--color-industry-avg)' },
-  { name: 'Top Performers', score: 85, fill: 'var(--color-top-performers)' },
+  { name: 'Your Score', score: 68 },
+  { name: 'Industry Avg.', score: 55 },
+  { name: 'Top Performers', score: 85 },
 ];
 
 const chartConfig = {
   score: {
     label: 'Score',
   },
-  'your-score': {
+  'Your Score': {
     label: 'Your Score',
     color: 'hsl(var(--chart-1))',
   },
-  'industry-avg': {
+  'Industry Avg.': {
     label: 'Industry Avg.',
     color: 'hsl(var(--chart-2))',
   },
-  'top-performers': {
+  'Top Performers': {
     label: 'Top Performers',
     color: 'hsl(var(--chart-3))',
   },
@@ -64,22 +64,28 @@ export function ComparativeAnalysisChart() {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
+              tickFormatter={(value) =>
+                chartConfig[value as keyof typeof chartConfig]?.label
+              }
             />
             <XAxis dataKey="score" type="number" hide />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-             <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Bar dataKey="score" layout="vertical" radius={5} />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>This chart compares your generated risk score against the industry average and top-performing benchmarks.</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Bar dataKey="score" layout="vertical" radius={5}>
+              {chartData.map((entry) => (
+                <RechartsTooltip
+                  key={entry.name}
+                  content={
+                    <p>
+                      This chart compares your generated risk score against the
+                      industry average and top-performing benchmarks.
+                    </p>
+                  }
+                />
+              ))}
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>
