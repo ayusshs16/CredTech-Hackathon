@@ -1,8 +1,7 @@
-
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Pie, PieChart, Cell } from 'recharts';
+import { Pie, PieChart, Cell, Tooltip as ChartTooltip } from 'recharts';
 
 import {
   Card,
@@ -17,6 +16,7 @@ import {
   ChartLegend,
   ChartLegendContent,
   type ChartConfig,
+  ChartTooltipContent,
 } from '@/components/ui/chart';
 
 const chartData = [
@@ -66,7 +66,7 @@ export function RiskFactorsChart() {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[200px]"
+          className="mx-auto aspect-square h-[200px]"
         >
           <PieChart>
             <ChartTooltip
