@@ -17,6 +17,15 @@ const contributors = [
         name: 'Ayush Srivastava',
         githubUser: 'ayusshs16',
         website: 'https://www.linkedin.com/in/ayusshsrivastava16/',
+    },
+    {
+        name: 'Dev Pratap Singh',
+        githubUser: 'dev-pratap-singh-byte',
+    },
+    {
+        name: 'Himanshu Gupta',
+        githubUser: 'webdhimanshu',
+        website: 'https://www.linkedin.com/in/himanshu-guptaa29102004',
     }
 ];
 
