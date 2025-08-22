@@ -2,7 +2,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Pie, PieChart, Cell } from 'recharts';
+import { Pie, PieChart } from 'recharts';
 
 import {
   Card,
@@ -14,10 +14,10 @@ import {
 } from '@/components/ui/card';
 import {
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart';
 
@@ -81,23 +81,20 @@ export function RiskFactorsChart() {
               nameKey="factor"
               innerRadius={60}
               strokeWidth={5}
-            >
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.fill} />
-              ))}
-            </Pie>
-             <ChartLegend
+            />
+            <ChartLegend
               content={<ChartLegendContent nameKey="factor" />}
               className="-mt-4"
             />
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm mt-auto">
+      <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Market Risk is the highest contributing factor <TrendingUp className="h-4 w-4" />
+          Market Risk is the highest contributing factor{' '}
+          <TrendingUp className="h-4 w-4" />
         </div>
-        <div className="leading-none text-muted-foreground text-center">
+        <div className="leading-none text-muted-foreground">
           Shows the weighted influence of each risk category.
         </div>
       </CardFooter>
