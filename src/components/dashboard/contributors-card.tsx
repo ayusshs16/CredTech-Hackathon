@@ -11,6 +11,7 @@ const contributors = [
     {
         name: 'Jay Gupta',
         githubUser: 'Jaygupta09',
+        website: 'https://www.linkedin.com/in/jay-gupta-197047309',
     },
     {
         name: 'Ayush Srivastava',

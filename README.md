@@ -23,6 +23,8 @@ A big thank you to our talented contributors!
         <br />
         <sub><b>Jay Gupta</b></sub>
       </a>
+      <br />
+      <a href="https://www.linkedin.com/in/jay-gupta-197047309">Website</a>
     </td>
     <td align="center">
       <a href="https://github.com/ayusshs16">
