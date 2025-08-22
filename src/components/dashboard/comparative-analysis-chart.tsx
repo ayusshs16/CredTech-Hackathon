@@ -17,24 +17,24 @@ import {
 } from '@/components/ui/chart';
 
 const chartData = [
-  { name: 'Your Score', score: 68, fill: 'var(--color-Your Score)' },
-  { name: 'Industry Avg.', score: 55, fill: 'var(--color-Industry Avg.)' },
-  { name: 'Top Performers', score: 85, fill: 'var(--color-Top Performers)' },
+  { name: 'Your_Score', label: 'Your Score', score: 68 },
+  { name: 'Industry_Avg', label: 'Industry Avg.', score: 55 },
+  { name: 'Top_Performers', label: 'Top Performers', score: 85 },
 ];
 
 const chartConfig = {
   score: {
     label: 'Score',
   },
-  'Your Score': {
+  Your_Score: {
     label: 'Your Score',
     color: 'hsl(var(--chart-1))',
   },
-  'Industry Avg.': {
+  Industry_Avg: {
     label: 'Industry Avg.',
     color: 'hsl(var(--chart-2))',
   },
-  'Top Performers': {
+  Top_Performers: {
     label: 'Top Performers',
     color: 'hsl(var(--chart-3))',
   },
@@ -59,14 +59,11 @@ export function ComparativeAnalysisChart() {
           >
             <CartesianGrid horizontal={false} />
             <YAxis
-              dataKey="name"
+              dataKey="label"
               type="category"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) =>
-                chartConfig[value as keyof typeof chartConfig]?.label
-              }
             />
             <XAxis dataKey="score" type="number" hide />
             <ChartTooltip
@@ -75,7 +72,7 @@ export function ComparativeAnalysisChart() {
             />
             <Bar dataKey="score" layout="vertical" radius={5}>
               {chartData.map((entry) => (
-                <Cell key={entry.name} fill={entry.fill} />
+                <Cell key={entry.name} fill={`var(--color-${entry.name})`} />
               ))}
             </Bar>
           </BarChart>
