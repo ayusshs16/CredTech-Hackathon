@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Cell } from 'recharts';
 import {
   Card,
   CardContent,
@@ -17,9 +17,9 @@ import {
 } from '@/components/ui/chart';
 
 const chartData = [
-  { name: 'Your Score', score: 68 },
-  { name: 'Industry Avg.', score: 55 },
-  { name: 'Top Performers', score: 85 },
+  { name: 'Your Score', score: 68, fill: 'var(--color-Your Score)' },
+  { name: 'Industry Avg.', score: 55, fill: 'var(--color-Industry Avg.)' },
+  { name: 'Top Performers', score: 85, fill: 'var(--color-Top Performers)' },
 ];
 
 const chartConfig = {
@@ -75,15 +75,7 @@ export function ComparativeAnalysisChart() {
             />
             <Bar dataKey="score" layout="vertical" radius={5}>
               {chartData.map((entry) => (
-                <RechartsTooltip
-                  key={entry.name}
-                  content={
-                    <p>
-                      This chart compares your generated risk score against the
-                      industry average and top-performing benchmarks.
-                    </p>
-                  }
-                />
+                <Cell key={entry.name} fill={entry.fill} />
               ))}
             </Bar>
           </BarChart>
