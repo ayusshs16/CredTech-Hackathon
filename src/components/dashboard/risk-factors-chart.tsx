@@ -2,7 +2,6 @@
 'use client';
 
 import * as React from 'react';
-import { Pie, PieChart, Cell, Tooltip } from 'recharts';
 
 import {
   Card,
@@ -11,11 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  ChartContainer,
-  type ChartConfig,
-  ChartTooltipContent,
-} from '@/components/ui/chart';
+import type { ChartConfig } from '@/components/ui/chart';
 
 const chartData = [
   { factor: 'market', value: 35, fill: 'var(--color-market)' },
@@ -55,23 +50,18 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function RiskFactorsChart() {
-  const totalValue = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.value, 0);
-  }, []);
-
   return (
     <Card className="flex flex-col">
       <CardHeader>
         <CardTitle>Risk Factor Breakdown</CardTitle>
         <CardDescription>Primary drivers of the risk score</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <div className="flex flex-col items-start gap-4 sm:flex-row">
-          <div className="flex flex-1 flex-col justify-center space-y-2">
+      <CardContent className="flex-1 pb-4">
+        <div className="space-y-4">
             <div className="font-medium text-foreground">
               Top Risk Factors
             </div>
-            <div className="grid grid-cols-1 gap-x-4 gap-y-2">
+            <div className="grid grid-cols-1 gap-x-4 gap-y-3">
               {chartData.map((entry) => (
                 <div key={entry.factor} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -79,7 +69,7 @@ export function RiskFactorsChart() {
                       className="h-2.5 w-2.5 shrink-0 rounded-full"
                       style={{ backgroundColor: entry.fill }}
                     />
-                    <div className="flex-1" style={{ color: entry.fill }}>
+                    <div className="flex-1 font-medium" style={{ color: entry.fill }}>
                       {chartConfig[entry.factor as keyof typeof chartConfig]?.label}
                     </div>
                   </div>
@@ -87,31 +77,6 @@ export function RiskFactorsChart() {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="flex w-full items-center justify-center sm:w-1/2">
-            <ChartContainer
-              config={chartConfig}
-              className="mx-auto aspect-square h-[250px] max-h-[250px]"
-            >
-              <PieChart>
-                <Tooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
-                />
-                <Pie
-                  data={chartData}
-                  dataKey="value"
-                  nameKey="factor"
-                  innerRadius={50}
-                  strokeWidth={5}
-                >
-                  {chartData.map((entry) => (
-                    <Cell key={entry.factor} fill={entry.fill} className="outline-none" />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
-          </div>
         </div>
       </CardContent>
     </Card>
