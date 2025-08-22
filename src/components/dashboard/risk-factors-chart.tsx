@@ -1,7 +1,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Pie, PieChart, Cell, Tooltip as ChartTooltip } from 'recharts';
+import { Pie, PieChart, Cell, Tooltip } from 'recharts';
 
 import {
   Card,
@@ -66,13 +66,10 @@ export function RiskFactorsChart() {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square h-[200px]"
+          className="mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <Tooltip content={<ChartTooltipContent hideLabel />} />
             <Pie
               data={chartData}
               dataKey="value"
@@ -81,17 +78,21 @@ export function RiskFactorsChart() {
               strokeWidth={5}
             >
               {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                <Cell key={`cell-${index}`} fill={entry.fill} />
               ))}
             </Pie>
-            <ChartLegend
-              content={<ChartLegendContent nameKey="factor" />}
-              className="-mt-4"
-            />
           </PieChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
+        <div className="flex w-full items-center justify-center gap-2">
+            {chartData.map((entry) => (
+                <div key={entry.factor} className="flex items-center gap-1.5">
+                    <div className="h-2 w-2 shrink-0 rounded-full" style={{backgroundColor: entry.fill}} />
+                    <span>{chartConfig[entry.factor as keyof typeof chartConfig]?.label}</span>
+                </div>
+            ))}
+        </div>
         <div className="flex items-center gap-2 font-medium leading-none">
           Market Risk is the highest contributing factor{' '}
           <TrendingUp className="h-4 w-4" />
