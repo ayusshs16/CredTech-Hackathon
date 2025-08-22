@@ -68,7 +68,7 @@ export function RiskFactorsChart() {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square h-[250px]"
+          className="mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
             <ChartTooltip
@@ -93,7 +93,7 @@ export function RiskFactorsChart() {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm mt-4">
+      <CardFooter className="flex-col gap-2 text-sm mt-auto">
         <div className="flex items-center gap-2 font-medium leading-none">
           Market Risk is the highest contributing factor <TrendingUp className="h-4 w-4" />
         </div>
