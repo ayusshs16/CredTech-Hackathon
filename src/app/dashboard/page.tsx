@@ -11,6 +11,7 @@ import { UnstructuredDataAnalysis } from '@/components/dashboard/unstructured-da
 import { DataIngestion } from '@/components/dashboard/data-ingestion';
 import type { AnalysisState } from '@/app/actions';
 import { EvaluationFocus } from '@/components/dashboard/evaluation-focus';
+import { ContributorsCard } from '@/components/dashboard/contributors-card';
 
 function calculateRiskScore(analysisResult: AnalysisState['analysis']) {
   if (!analysisResult) {
@@ -76,6 +77,9 @@ export default function DashboardPage() {
           </div>
           <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
             <DataIngestion />
+          </div>
+           <div className="grid gap-4 md:gap-8 lg:grid-cols-1">
+            <ContributorsCard />
           </div>
         </main>
       </div>
