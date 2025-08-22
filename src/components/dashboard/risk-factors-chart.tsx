@@ -67,21 +67,23 @@ export function RiskFactorsChart() {
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <div className="flex flex-col items-start gap-4 sm:flex-row">
-          <div className="grid w-full gap-2 text-sm sm:w-1/2">
+          <div className="flex flex-1 flex-col justify-center space-y-2">
             <div className="font-medium text-foreground">
               Top Risk Factors
             </div>
             <div className="grid grid-cols-1 gap-x-4 gap-y-2">
               {chartData.map((entry) => (
-                <div key={entry.factor} className="flex items-center gap-2">
-                  <div
-                    className="h-2.5 w-2.5 shrink-0 rounded-full"
-                    style={{ backgroundColor: entry.fill }}
-                  />
-                  <div className="flex-1" style={{ color: entry.fill }}>
-                    {chartConfig[entry.factor as keyof typeof chartConfig]?.label}
+                <div key={entry.factor} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: entry.fill }}
+                    />
+                    <div className="flex-1" style={{ color: entry.fill }}>
+                      {chartConfig[entry.factor as keyof typeof chartConfig]?.label}
+                    </div>
                   </div>
-                  <div className="text-right font-medium">{entry.value}%</div>
+                  <div className="text-right font-medium" style={{ color: entry.fill }}>{entry.value}%</div>
                 </div>
               ))}
             </div>
@@ -89,7 +91,7 @@ export function RiskFactorsChart() {
           <div className="flex w-full items-center justify-center sm:w-1/2">
             <ChartContainer
               config={chartConfig}
-              className="mx-auto aspect-square h-full max-h-[250px] pb-0"
+              className="mx-auto aspect-square h-[250px] max-h-[250px]"
             >
               <PieChart>
                 <Tooltip
