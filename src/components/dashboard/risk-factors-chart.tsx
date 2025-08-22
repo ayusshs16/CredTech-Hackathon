@@ -69,7 +69,7 @@ export function RiskFactorsChart() {
                       className="h-2.5 w-2.5 shrink-0 rounded-full"
                       style={{ backgroundColor: entry.fill }}
                     />
-                    <div className="flex-1 font-medium" style={{ color: entry.fill }}>
+                    <div className="font-medium" style={{ color: entry.fill }}>
                       {chartConfig[entry.factor as keyof typeof chartConfig]?.label}
                     </div>
                   </div>
