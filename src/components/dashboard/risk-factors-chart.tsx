@@ -65,10 +65,10 @@ export function RiskFactorsChart() {
         <CardTitle>Risk Factor Breakdown</CardTitle>
         <CardDescription>Primary drivers of the risk score</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
+      <CardContent className="flex flex-1 items-center pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square h-[250px]"
         >
           <PieChart>
             <ChartTooltip
