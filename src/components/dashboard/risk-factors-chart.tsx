@@ -56,50 +56,66 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function RiskFactorsChart() {
+  const totalValue = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.value, 0);
+  }, []);
+
   return (
     <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
+      <CardHeader>
         <CardTitle>Risk Factor Breakdown</CardTitle>
         <CardDescription>Primary drivers of the risk score</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square h-[250px]"
-        >
-          <PieChart>
-            <Tooltip content={<ChartTooltipContent hideLabel />} />
-            <Pie
-              data={chartData}
-              dataKey="value"
-              nameKey="factor"
-              innerRadius={50}
-              strokeWidth={5}
-            >
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.fill} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-2">
-            {chartData.map((entry) => (
-                <div key={entry.factor} className="flex items-center gap-1.5">
-                    <div className="h-2 w-2 shrink-0 rounded-full" style={{backgroundColor: entry.fill}} />
+      <CardContent className="flex-1 flex items-center justify-center">
+        <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-6">
+          <div className="flex flex-col gap-4 text-sm w-full sm:w-1/2">
+            <div className="grid gap-2">
+              {chartData.map((entry) => (
+                <div key={entry.factor} className="flex items-center">
+                  <div className="flex items-center gap-2 flex-1">
+                    <div
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: entry.fill }}
+                    />
                     <span>{chartConfig[entry.factor as keyof typeof chartConfig]?.label}</span>
+                  </div>
+                  <div className="font-medium text-right">{entry.value}%</div>
                 </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          <div className="w-full sm:w-1/2 flex items-center justify-center">
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square h-[200px]"
+            >
+              <PieChart>
+                <Tooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Pie
+                  data={chartData}
+                  dataKey="value"
+                  nameKey="factor"
+                  innerRadius={60}
+                  strokeWidth={5}
+                >
+                  <Cell
+                    key="total"
+                    fill="var(--color-background)"
+                    stroke="var(--color-border)"
+                    className="outline-none"
+                  />
+                  {chartData.map((entry) => (
+                    <Cell key={entry.factor} fill={entry.fill} className="outline-none" />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+          </div>
         </div>
-        <div className="flex items-center gap-2 font-medium leading-none text-center">
-          Market Risk is the highest contributing factor{' '}
-          <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground text-center">
-          Shows the weighted influence of each risk category.
-        </div>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 }
