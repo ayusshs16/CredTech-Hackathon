@@ -20,7 +20,7 @@ interface FetchedDataItem {
 export function DataIngestion() {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
-  const [sourceType, setSourceType] = useState('structured');
+  const [sourceType, setSourceType] = useState('unstructured');
   const [sourceUrl, setSourceUrl] = useState('');
   const [fetchedData, setFetchedData] = useState<FetchedDataItem[]>([]);
 
