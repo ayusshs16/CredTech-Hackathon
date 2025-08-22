@@ -2,7 +2,7 @@
 'use client';
 
 import * as React from 'react';
-import { Pie, PieChart, Cell } from 'recharts';
+import { Pie, PieChart, Cell, Tooltip } from 'recharts';
 
 import {
   Card,
@@ -78,7 +78,9 @@ export function RiskFactorsChart() {
                     className="h-2.5 w-2.5 shrink-0 rounded-full"
                     style={{ backgroundColor: entry.fill }}
                   />
-                  <div className="flex-1">{chartConfig[entry.factor as keyof typeof chartConfig]?.label}</div>
+                  <div className="flex-1" style={{ color: entry.fill }}>
+                    {chartConfig[entry.factor as keyof typeof chartConfig]?.label}
+                  </div>
                   <div className="text-right font-medium">{entry.value}%</div>
                 </div>
               ))}
@@ -90,10 +92,9 @@ export function RiskFactorsChart() {
               className="mx-auto aspect-square h-full max-h-[250px] pb-0"
             >
               <PieChart>
-                <ChartTooltipContent
+                <Tooltip
                   cursor={false}
-                  nameKey="factor"
-                  formatter={(value, name) => `${chartConfig[name as keyof typeof chartConfig]?.label}: ${value}%`}
+                  content={<ChartTooltipContent hideLabel />}
                 />
                 <Pie
                   data={chartData}
