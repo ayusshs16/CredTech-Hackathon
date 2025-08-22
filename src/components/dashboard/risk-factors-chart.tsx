@@ -16,8 +16,6 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart';
 
@@ -65,10 +63,10 @@ export function RiskFactorsChart() {
         <CardTitle>Risk Factor Breakdown</CardTitle>
         <CardDescription>Primary drivers of the risk score</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-1 items-center pb-0">
+      <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square h-[250px]"
+          className="mx-auto aspect-square max-h-[200px]"
         >
           <PieChart>
             <ChartTooltip
@@ -79,7 +77,7 @@ export function RiskFactorsChart() {
               data={chartData}
               dataKey="value"
               nameKey="factor"
-              innerRadius={60}
+              innerRadius={50}
               strokeWidth={5}
             >
               {chartData.map((entry, index) => (
