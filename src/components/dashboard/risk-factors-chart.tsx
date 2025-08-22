@@ -2,7 +2,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Pie, PieChart, Cell } from 'recharts';
+import { Pie, PieChart } from 'recharts';
 
 import {
   Card,
@@ -18,8 +18,6 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-
 
 const chartData = [
   { factor: 'Market Risk', value: 35, fill: 'var(--color-market)' },
@@ -75,35 +73,21 @@ export function RiskFactorsChart() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Pie
-                    data={chartData}
-                    dataKey="value"
-                    nameKey="factor"
-                    innerRadius={60}
-                    strokeWidth={5}
-                  >
-                    {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                    ))}
-                  </Pie>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>This chart shows the weighted influence of each category contributing to the overall risk score.</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Pie
+              data={chartData}
+              dataKey="value"
+              nameKey="factor"
+              innerRadius={60}
+              strokeWidth={5}
+            />
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <div className="text-center text-lg font-bold">Top Factors</div>
-      <CardFooter className="flex-col gap-2 text-sm">
+      <CardFooter className="flex-col gap-2 text-sm mt-4">
         <div className="flex items-center gap-2 font-medium leading-none">
           Market Risk is the highest contributing factor <TrendingUp className="h-4 w-4" />
         </div>
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none text-muted-foreground text-center">
           Shows the weighted influence of each risk category.
         </div>
       </CardFooter>
