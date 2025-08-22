@@ -1,14 +1,13 @@
 
 'use client';
 
-import { TrendingUp } from 'lucide-react';
-import { Pie, PieChart, Cell, Tooltip } from 'recharts';
+import * as React from 'react';
+import { Pie, PieChart, Cell } from 'recharts';
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -66,47 +65,43 @@ export function RiskFactorsChart() {
         <CardTitle>Risk Factor Breakdown</CardTitle>
         <CardDescription>Primary drivers of the risk score</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 flex items-center justify-center">
-        <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-6">
-          <div className="flex flex-col gap-4 text-sm w-full sm:w-1/2">
-            <div className="grid gap-2">
+      <CardContent className="flex-1 pb-0">
+        <div className="flex flex-col items-start gap-4 sm:flex-row">
+          <div className="grid w-full gap-2 text-sm sm:w-1/2">
+            <div className="font-medium text-foreground">
+              Top Risk Factors
+            </div>
+            <div className="grid grid-cols-1 gap-x-4 gap-y-2">
               {chartData.map((entry) => (
-                <div key={entry.factor} className="flex items-center">
-                  <div className="flex items-center gap-2 flex-1">
-                    <div
-                      className="h-2.5 w-2.5 shrink-0 rounded-full"
-                      style={{ backgroundColor: entry.fill }}
-                    />
-                    <span>{chartConfig[entry.factor as keyof typeof chartConfig]?.label}</span>
-                  </div>
-                  <div className="font-medium text-right">{entry.value}%</div>
+                <div key={entry.factor} className="flex items-center gap-2">
+                  <div
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: entry.fill }}
+                  />
+                  <div className="flex-1">{chartConfig[entry.factor as keyof typeof chartConfig]?.label}</div>
+                  <div className="text-right font-medium">{entry.value}%</div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="w-full sm:w-1/2 flex items-center justify-center">
+          <div className="flex w-full items-center justify-center sm:w-1/2">
             <ChartContainer
               config={chartConfig}
-              className="mx-auto aspect-square h-[200px]"
+              className="mx-auto aspect-square h-full max-h-[250px] pb-0"
             >
               <PieChart>
-                <Tooltip
+                <ChartTooltipContent
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
+                  nameKey="factor"
+                  formatter={(value, name) => `${chartConfig[name as keyof typeof chartConfig]?.label}: ${value}%`}
                 />
                 <Pie
                   data={chartData}
                   dataKey="value"
                   nameKey="factor"
-                  innerRadius={60}
+                  innerRadius={50}
                   strokeWidth={5}
                 >
-                  <Cell
-                    key="total"
-                    fill="var(--color-background)"
-                    stroke="var(--color-border)"
-                    className="outline-none"
-                  />
                   {chartData.map((entry) => (
                     <Cell key={entry.factor} fill={entry.fill} className="outline-none" />
                   ))}
