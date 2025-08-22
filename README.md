@@ -31,7 +31,7 @@ A big thank you to our talented contributors!
         <sub><b>Ayush Srivastava</b></sub>
       </a>
       <br />
-      <a href="https://www.linkedin.com/in/ayusshsrivastava16/">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/ayusshsrivastava16/">Website</a>
     </td>
   </tr>
 </table>
