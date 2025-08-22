@@ -2,7 +2,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
-import { Pie, PieChart, Cell } from 'recharts';
+import { Pie, PieChart } from 'recharts';
 
 import {
   Card,
@@ -40,19 +40,19 @@ const chartConfig = {
   value: {
     label: 'Value',
   },
-  'Market Risk': {
+  market: {
     label: 'Market Risk',
     color: 'hsl(var(--chart-1))',
   },
-  'Social Sentiment': {
+  sentiment: {
     label: 'Social Sentiment',
     color: 'hsl(var(--chart-2))',
   },
-  'Economic Data': {
+  economic: {
     label: 'Economic Data',
     color: 'hsl(var(--chart-3))',
   },
-  'Company Financials': {
+  financials: {
     label: 'Company Financials',
     color: 'hsl(var(--chart-4))',
   },
@@ -81,11 +81,7 @@ export function RiskFactorsChart() {
               nameKey="factor"
               innerRadius={60}
               strokeWidth={5}
-            >
-              {chartData.map((entry) => (
-                <Cell key={`cell-${entry.factor}`} fill={entry.fill} />
-              ))}
-            </Pie>
+            />
              <ChartLegend
               content={<ChartLegendContent nameKey="factor" />}
               className="-mt-4"
