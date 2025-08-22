@@ -18,6 +18,8 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
 
 const chartData = [
   { factor: 'Market Risk', value: 35, fill: 'var(--color-market)' },
@@ -73,13 +75,22 @@ export function RiskFactorsChart() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Pie
-              data={chartData}
-              dataKey="value"
-              nameKey="factor"
-              innerRadius={60}
-              strokeWidth={5}
-            ></Pie>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Pie
+                    data={chartData}
+                    dataKey="value"
+                    nameKey="factor"
+                    innerRadius={60}
+                    strokeWidth={5}
+                  ></Pie>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>This chart shows the weighted influence of each category contributing to the overall risk score.</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </PieChart>
         </ChartContainer>
       </CardContent>

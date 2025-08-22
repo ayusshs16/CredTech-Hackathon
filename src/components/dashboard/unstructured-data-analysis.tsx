@@ -10,6 +10,8 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { performAnalysis, type AnalysisState } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
+import { Skeleton } from '@/components/ui/skeleton';
+
 
 function getSentimentInfo(sentiment: string) {
   switch (sentiment.toLowerCase()) {
@@ -47,6 +49,7 @@ export function UnstructuredDataAnalysis({ onAnalysisComplete }: UnstructuredDat
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    setResult(null);
     startTransition(async () => {
       const response = await performAnalysis(formData);
       if (response.error) {
@@ -60,6 +63,32 @@ export function UnstructuredDataAnalysis({ onAnalysisComplete }: UnstructuredDat
       onAnalysisComplete(response);
     });
   };
+
+  const AnalysisSkeleton = () => (
+    <div className="space-y-4">
+      <div>
+        <h4 className="font-semibold mb-2">Key Risk Summary</h4>
+        <div className="space-y-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-[80%]" />
+        </div>
+      </div>
+      <Separator/>
+      <div>
+          <h4 className="font-semibold mb-2">Identified Risk Factors</h4>
+          <div className="flex flex-wrap gap-2">
+            <Skeleton className="h-6 w-24 rounded-full" />
+            <Skeleton className="h-6 w-32 rounded-full" />
+            <Skeleton className="h-6 w-28 rounded-full" />
+          </div>
+      </div>
+       <Separator/>
+       <div>
+          <h4 className="font-semibold mb-2">Overall Sentiment</h4>
+          <Skeleton className="h-6 w-24 rounded-full" />
+       </div>
+    </div>
+  );
 
   return (
     <Card>
@@ -97,12 +126,7 @@ export function UnstructuredDataAnalysis({ onAnalysisComplete }: UnstructuredDat
 
           <div className="rounded-lg border bg-muted/20 p-4 space-y-4">
             <h3 className="font-semibold text-lg">Analysis Results</h3>
-            {isPending && (
-              <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-                 <Loader2 className="h-8 w-8 animate-spin mb-2" />
-                 <p>Generating Insights...</p>
-              </div>
-            )}
+            {isPending && <AnalysisSkeleton />}
             {!isPending && !result && (
               <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
                  <p>Your analysis will appear here.</p>
@@ -124,10 +148,13 @@ export function UnstructuredDataAnalysis({ onAnalysisComplete }: UnstructuredDat
                 <div>
                     <h4 className="font-semibold mb-2">Identified Risk Factors</h4>
                     <div className="flex flex-wrap gap-2">
-                        {result.analysis.riskFactors.map((factor) => {
-                            const Sentiment = getSentimentInfo(result.analysis?.overallSentiment || 'neutral');
-                             return (<Badge key={factor} variant="secondary">{factor}</Badge>);
-                        })}
+                        {result.analysis.riskFactors.length > 0 ? (
+                          result.analysis.riskFactors.map((factor) => (
+                            <Badge key={factor} variant="secondary">{factor}</Badge>
+                          ))
+                        ) : (
+                          <p className="text-sm text-muted-foreground">No specific risk factors identified.</p>
+                        )}
                     </div>
                 </div>
                  <Separator/>

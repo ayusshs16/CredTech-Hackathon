@@ -30,7 +30,7 @@ const prompt = ai.definePrompt({
   name: 'analyzeUnstructuredDataPrompt',
   input: {schema: AnalyzeUnstructuredDataInputSchema},
   output: {schema: AnalyzeUnstructuredDataOutputSchema},
-  prompt: `You are an expert financial market analyst. Your task is to analyze the following unstructured text for signals related to stock market risk and general financial stability.
+  prompt: `You are an expert financial market analyst. Your task is to analyze the following unstructured text for signals related to stock market risk and general financial stability. The text could be from news articles, social media, or financial reports.
 
 Analyze the following data source:
 ---
@@ -38,9 +38,9 @@ Analyze the following data source:
 ---
 
 Based on the text, please perform a financial risk analysis and provide the following:
-1.  Identify a list of key financial and market-related risk factors. These could be related to market volatility, company performance, economic indicators, geopolitical events, regulatory changes, etc.
+1.  Identify a list of key financial and market-related risk factors. These could be related to market volatility, company performance, economic indicators, geopolitical events, regulatory changes, etc. If no specific risks are found, return an empty array.
 2.  Provide a concise summary of your financial risk analysis.
-3.  Determine the overall sentiment of the data source from a financial risk perspective (positive, negative, or neutral).`,
+3.  Determine the overall sentiment of the data source from a financial risk perspective (positive, negative, or neutral). Your sentiment analysis should be based on the potential impact on financial markets.`,
 });
 
 const analyzeUnstructuredDataFlow = ai.defineFlow(

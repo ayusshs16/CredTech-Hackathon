@@ -14,6 +14,7 @@ import {
   ChartTooltipContent,
   ChartConfig,
 } from '@/components/ui/chart';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const chartData = [
   { name: 'Your Score', score: 68, fill: 'var(--color-your-score)' },
@@ -69,7 +70,16 @@ export function ComparativeAnalysisChart() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="score" layout="vertical" radius={5} />
+             <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Bar dataKey="score" layout="vertical" radius={5} />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>This chart compares your generated risk score against the industry average and top-performing benchmarks.</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </BarChart>
         </ChartContainer>
       </CardContent>
